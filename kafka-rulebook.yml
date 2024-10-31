@@ -1,0 +1,20 @@
+---
+- name: Listen for events on a webhook
+  hosts: localhost
+  sources:
+   - ansible.eda.kafka:
+      topic: first_topic
+      host: localhost
+      port: 9092
+  rules:
+   - name: Say Hello
+     condition:
+       all:
+         - event.body.signal < 10
+         - event.body.signal < 9
+         - event.body.signal < 8
+       timeout: 30 seconds
+     action:
+       debug:
+        msg:
+          - "Signal is dropping"
