@@ -1,13 +1,13 @@
 ---
-- name: Listen for events on a webhook
+- name: Listen for events on a kafka topic
   hosts: localhost
   sources:
    - ansible.eda.kafka:
-      topic: first_topic
-      host: localhost
-      port: 9092
+      topic: "{{ kafka_topic | default('first_topic') }}"
+      host: "{{ kafka_url | default('localhost') }}"
+      port: "{{ kafka_port | default('9092') }}"
   rules:
-   - name: Say Hello
+   - name: Alert dropping signal
      condition:
        all:
          - event.body.signal < 10
@@ -18,3 +18,9 @@
        debug:
         msg:
           - "Signal is dropping"
+   - name: Test rule
+     condition: event.body != ''
+     action:
+       debug:
+        msg:
+          - "Rulebook fired on test rule"
