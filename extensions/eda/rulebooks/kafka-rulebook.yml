@@ -23,7 +23,7 @@
      action:
        debug:
         msg:
-          - event.body
+          - "{{ event.body }}"
    - name: Test event rule
      condition: event.body.signal == 10
      action:
