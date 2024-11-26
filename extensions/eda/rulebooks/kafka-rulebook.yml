@@ -24,9 +24,9 @@
        debug:
         msg:
           - "Rulebook fired on test rule"
-  - name: Test event rule
-    condition: event.body.signal = 10
-    action:
-      debug:
-       msg:
+   - name: Test event rule
+     condition: event.body.signal = 10
+     action:
+       debug:
+        msg:
           - "Rulebook fired on event body"
